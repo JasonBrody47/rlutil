@@ -8,3 +8,6 @@ example-c
 # OS X Crap
 *.dSYM
 **/.DS_Store
+*.ipch
+/.vs/rlutil/v15
+/.vs
