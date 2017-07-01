@@ -575,10 +575,10 @@ namespace rlutil {
 #ifdef __cplusplus
     RLUTIL_INLINE void setString(const RLUTIL_STRING_T & str_) {
         const char * const str = str_.data();
-        unsigned int len = str_.size();
+        unsigned int len = static_cast<unsigned int>(str_.size());
 #else // __cplusplus
     RLUTIL_INLINE void setString(RLUTIL_STRING_T str) {
-        unsigned int len = strlen(str);
+        unsigned int len = (unsigned int) strlen(str);
 #endif // __cplusplus
 #if defined(_WIN32) && !defined(RLUTIL_USE_ANSI)
         HANDLE hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -586,7 +586,7 @@ namespace rlutil {
         CONSOLE_SCREEN_BUFFER_INFO csbi;
 
         GetConsoleScreenBufferInfo(hConsoleOutput, &csbi);
-        WriteConsoleOutputCharacter(hConsoleOutput, str, len, csbi.dwCursorPosition, &numberOfCharsWritten);
+        WriteConsoleOutputCharacterA(hConsoleOutput, str, len, csbi.dwCursorPosition, &numberOfCharsWritten);
 #else // _WIN32 || USE_ANSI
         RLUTIL_PRINT(str);
 #ifdef __cplusplus
